@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Lista de Filmes</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   </head>
+   <body>
+      <div class="container">
+         <h1>Lista de Filmes</h1>
+         <br />
+         <ul class="list-group">
+            {% for filme in filmes %}
+            <li class="list-group-item">
+               <strong>Título:</strong> {{filme.titulo}}
+               <br />
+               <strong>Preço do ingresso:</strong> R$ {{filme.valor|stringformat:".2f"}}
+               <br />
+               <strong>Categoria:</strong> {{filme.categoria}}
+               <br>
+               <a href="{% url 'editar_filme' filme.id %}" class="btn btn-primary">Editar</a>
+               <a href="{% url 'excluir_filme' filme.id %}" class="btn btn-danger">Excluir</a>
+            </li>
+            <br />
+            {% endfor %}
+         </ul>
+         <a href="{% url 'listar_locacoes' %}" class="btn btn-secondary">Voltar</a>
+         <a href="{% url 'criar_filme' %}" class="btn btn-success">Adicionar</a>
+      </div>
+   </body>
+</html>

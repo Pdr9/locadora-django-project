@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Locações cadastradas</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   </head>
+   <body>
+      <div class="container">
+         <h1>Locações cadastradas</h1>
+         <br />
+         <ul class="list-group">
+            {% for locacao in locacoes %} 
+            <li class="list-group-item">
+               <strong>Nome:</strong> {{ locacao.nome }}
+               <br />
+               <strong>Data:</strong> {{ locacao.data }}
+               <br />
+               <strong>Cliente:</strong> {{ locacao.cliente }}
+               <br />
+               <strong>Filme(s):</strong>
+               <ul class="list-group">
+                  {% for filme in locacao.filmes.all %}
+                  <li class="list-group-item">{{ filme.titulo }}</li>
+                  {% endfor %}
+               </ul>
+               <br>
+               <a href="{% url 'editar_locacao' locacao.id %}" class="btn btn-primary">Editar</a>
+               <a href="{% url 'excluir_locacao' locacao.id %}" class="btn btn-danger">Excluir</a>
+            </li>
+            <br />
+            <hr />
+            {% endfor %}
+         </ul>
+         <br>
+         <a href="{% url 'criar_locacao' %}" class="btn btn-success">Criar Locação</a>
+         <a href="{% url 'index' %}" class="btn btn-secondary">Voltar</a>
+      </div>
+   </body>
+</html>
